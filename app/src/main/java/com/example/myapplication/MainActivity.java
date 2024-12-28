@@ -41,10 +41,11 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 setWord(String.valueOf(editText.getText()));
+                setWord(String.valueOf(editText.getText()).trim());
                 button.setVisibility(View.GONE);
                 check.setVisibility(View.VISIBLE);
                 editText.setText("");
+                text.setText(getPlace(""));
             }
 
         });
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         this.word = word;
     }
     private String getPlace(String guess){
+
         if(this.word.contains(guess)){
             this.correctLetters += guess;
         }
@@ -98,6 +100,11 @@ public class MainActivity extends AppCompatActivity {
             else{
                 place += "_ ";
             }
+        }
+        if (guess.length()!= 1){
+            return (String.format("ERROR PLEASE ENTER ONE LETTER AT A TIME\n" +
+                    "%s%nWrong Guesses:%s", place, this.wrongLetters));
+
         }
         return (String.format("%s%nWrong Guesses:%s", place, this.wrongLetters));
 
